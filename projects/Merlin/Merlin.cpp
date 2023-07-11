@@ -46,19 +46,25 @@ void AudioCallback(AudioHandle::InputBuffer in,
     float fine_tune = fmap(knob_fine, 0, 10);
 
     float cv_voct = patch.GetAdcValue(CV_5);
-    float voct = fmap(cv_voct, 0, 60);
+    float voct = fmap(cv_voct, 0, 72);
 
-    float cv_semi = patch.GetAdcValue(CV_4);
-    size_t semi = floor(fmap(cv_semi, 0, 13));
+    float cv2_voct = patch.GetAdcValue(CV_6);
+    float voct2 = fmap(cv2_voct, 0, 72);
+
+    // float cv_semi = patch.GetAdcValue(CV_4);
+    // size_t semi = floor(fmap(cv_semi, 0, 13));
 
     /** Convert from MIDI note number to frequency */
     float midi_nn = fclamp(coarse_tune + fine_tune + voct, 0.f, 127.f);
     float root = mtof(midi_nn);
 
+    float midi_nn2 = fclamp(coarse_tune + fine_tune + voct2, 0.f, 127.f);
+    float root2 = mtof(midi_nn2);
+
     /** Calculate a detune amount */
     float detuneAmt = patch.GetAdcValue(CV_3);
 
-    float pitches[2] = {root, root * equalTempered[semi]};
+    float pitches[2] = {root, root2};
 
     /** BRate **/
     for (size_t p = 0; p < nPitches; p++)
