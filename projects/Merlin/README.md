@@ -15,3 +15,10 @@ This example shows how to make a complex oscillator voice using three bandlimite
 
 
 The _comments.cpp file is identical to the main file with detailed comments of each piece of the source code.
+
+## install
+```sh
+make clean && make && make program-dfu
+
+dfu-util -w -a 0 -s 0x08000000:leave -D build/Merlin.bin -d ,0483:df11
+```
